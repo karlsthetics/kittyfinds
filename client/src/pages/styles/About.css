@@ -1,0 +1,209 @@
+/* ============================================================================
+   ABOUT Page Styles
+   ============================================================================ */
+
+.about-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.05) 0%, rgba(200, 162, 200, 0.05) 100%);
+}
+
+.about-hero {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeIn 0.8s ease-in;
+}
+
+.about-hero h1 {
+  font-size: 3.5rem;
+  color: #ff1493;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.about-hero p {
+  font-size: 1.4rem;
+  color: #666;
+  font-style: italic;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-section {
+  background: white;
+  padding: 40px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid #ff69b4;
+  animation: slideUp 0.6s ease-out;
+}
+
+.about-section:nth-child(2) {
+  border-left-color: #ffd700;
+  animation-delay: 0.1s;
+}
+
+.about-section:nth-child(3) {
+  border-left-color: #98d8c8;
+  animation-delay: 0.2s;
+}
+
+.about-section:nth-child(4) {
+  border-left-color: #ff1493;
+  animation-delay: 0.3s;
+}
+
+.about-section:nth-child(5) {
+  border-left-color: #ffd700;
+  animation-delay: 0.4s;
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  color: #ff1493;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.about-section p {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.about-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Collections Info Cards */
+.collections-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.collection-info-card {
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.1) 0%, rgba(200, 162, 200, 0.05) 100%);
+  padding: 25px;
+  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.collection-info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: #ff69b4;
+}
+
+.collection-info-card h3 {
+  font-size: 1.3rem;
+  color: #ff1493;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.collection-info-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Features List */
+.features-list {
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li {
+  font-size: 1.05rem;
+  color: #333;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+}
+
+.features-list li:hover {
+  padding-left: 10px;
+  color: #ff1493;
+}
+
+.features-list li:last-child {
+  border-bottom: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .about-section {
+    padding: 25px;
+  }
+
+  .about-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .collections-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page {
+    padding: 20px 15px;
+  }
+
+  .about-hero h1 {
+    font-size: 2rem;
+  }
+
+  .about-hero p {
+    font-size: 1.1rem;
+  }
+
+  .about-section {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .about-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .about-section p {
+    font-size: 0.95rem;
+  }
+}

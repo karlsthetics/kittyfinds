@@ -1,0 +1,69 @@
+/* ============================================================================
+   SHOP Page Styles
+   ============================================================================ */
+
+.shop-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.05) 0%, rgba(200, 162, 200, 0.05) 100%);
+}
+
+.shop-header {
+  text-align: center;
+  margin-bottom: 50px;
+  animation: fadeIn 0.8s ease-in;
+}
+
+.shop-header h1 {
+  font-size: 3.5rem;
+  color: #ff1493;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.shop-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .shop-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .shop-header p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-page {
+    padding: 20px 15px;
+  }
+
+  .shop-header h1 {
+    font-size: 2rem;
+  }
+
+  .shop-header p {
+    font-size: 1rem;
+  }
+
+  .shop-header {
+    margin-bottom: 30px;
+  }
+}

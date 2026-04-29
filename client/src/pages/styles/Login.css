@@ -1,0 +1,259 @@
+/* Login Page Styling */
+
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff0f5, #ffe4e1, #fff8f0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+}
+
+/* Logo */
+.login-logo {
+  display: block;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-decoration: none;
+}
+
+.login-logo h1 {
+  font-size: 2rem;
+  color: #ff1493;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.1);
+  text-decoration: none;
+}
+
+.login-logo:hover h1 {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Auth Card */
+.auth-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 40px rgba(255, 105, 180, 0.15);
+  animation: slideIn 0.6s ease-out;
+}
+
+/* Auth Tabs */
+.auth-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #fff0f5;
+  padding-bottom: 1rem;
+}
+
+.tab {
+  flex: 1;
+  padding: 0.75rem;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  margin-bottom: -1rem;
+}
+
+.tab.active {
+  color: #ff1493;
+  border-bottom-color: #ff1493;
+}
+
+.tab:hover {
+  color: #ff69b4;
+}
+
+/* Error Banner */
+.error-banner {
+  background: #ffe4e1;
+  border: 2px solid #ff1493;
+  color: #ff1493;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Auth Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth-form h2 {
+  color: #ff1493;
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #ff1493;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  padding: 0.85rem;
+  border: 2px solid #ff69b4;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ff1493;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #ccc;
+}
+
+/* Auth Button */
+.auth-button {
+  padding: 0.95rem;
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Auth Footer */
+.auth-footer {
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+.auth-footer a,
+.auth-footer p {
+  color: #999;
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin: 0;
+}
+
+.auth-footer a:hover {
+  color: #ff69b4;
+  text-decoration: underline;
+}
+
+/* Guest Option */
+.guest-option {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  margin-top: 1rem;
+}
+
+.guest-option p {
+  color: #999;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.guest-link {
+  display: inline-block;
+  color: #ff69b4;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.guest-link:hover {
+  color: #ff1493;
+  transform: translateX(3px);
+}
+
+/* Decorations */
+.login-decorations {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.decoration {
+  font-size: 2rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.decoration:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.decoration:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .login-page {
+    padding: 1rem;
+  }
+
+  .auth-card {
+    padding: 1.5rem;
+  }
+
+  .login-logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .auth-form h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-group input {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .login-decorations {
+    gap: 1rem;
+  }
+
+  .decoration {
+    font-size: 1.5rem;
+  }
+}

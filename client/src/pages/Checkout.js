@@ -105,12 +105,17 @@ function Checkout({ cartId, setCartId }) {
     setSubmitting(true);
 
     try {
-      // Create order
+      // Create order with structured data
       const order = await createOrder(cartId, {
-        name: `${formData.firstName} ${formData.lastName}`,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
         phone: formData.phone,
-        address: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}, ${formData.country}`,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+        country: formData.country
       });
 
       setOrderId(order.orderId);

@@ -17,6 +17,7 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import { supabase } from './utils/supabaseClient';
 import { createCart } from './utils/api';
 import './styles/global.css';
 
@@ -32,6 +33,41 @@ function App() {
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
+
+  // Auth state listener
+  useEffect(() => {
+    // Check current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        const userData = {
+          id: session.user.id,
+          email: session.user.email,
+          name: session.user.user_metadata?.full_name || session.user.email.split('@')[0],
+        };
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+      }
+    });
+
+    // Listen for changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        const userData = {
+          id: session.user.id,
+          email: session.user.email,
+          name: session.user.user_metadata?.full_name || session.user.email.split('@')[0],
+        };
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+      } else {
+        setUser(null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('userToken');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Initialize cart on app load if needed
   useEffect(() => {

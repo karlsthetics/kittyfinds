@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import ProductList from '../components/ProductList';
-import { fetchProducts, createCart } from '../utils/api';
+import { fetchProducts, createCart, subscribeToNewsletter } from '../utils/api';
 import './styles/Home.css';
 
 function Home({ cartId, setCartId }) {
@@ -449,12 +449,17 @@ function Home({ cartId, setCartId }) {
   const bestSellers = [...coquetteProducts.slice(0, 2), ...fairycoreProducts.slice(0, 2)];
 
   // Newsletter subscription handler
-  const handleNewsletterSubmit = (e) => {
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
     if (email) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 3000);
+      try {
+        await subscribeToNewsletter(email);
+        setSubscribed(true);
+        setEmail('');
+        setTimeout(() => setSubscribed(false), 3000);
+      } catch (err) {
+        alert('Failed to subscribe: ' + err.message);
+      }
     }
   };
 

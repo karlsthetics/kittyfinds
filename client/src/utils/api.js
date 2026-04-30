@@ -76,24 +76,55 @@ export async function fetchCategories() {
 }
 
 /**
- * Create a new shopping cart session
- * @returns {Promise} Cart ID
+ * Get reviews for a product
+ * @param {string} productId 
+ */
+export async function fetchReviews(productId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/products/${productId}/reviews`);
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error);
+    return data.data;
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    throw error;
+  }
+}
+
+/**
+ * Add a review for a product
+ * @param {string} productId 
+ * @param {object} reviewData { user_name, rating, comment }
+ */
+export async function addReview(productId, reviewData) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/products/${productId}/reviews`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(reviewData),
+    });
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error);
+    return data.data;
+  } catch (error) {
+    console.error('Error adding review:', error);
+    throw error;
+  }
+}
+
+/**
+ * Create a new shopping cart in the database
  */
 export async function createCart() {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart`, {
+    const response = await fetch(`${API_BASE_URL}/carts`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: [] }),
     });
     const data = await response.json();
-
-    if (!data.success) {
-      throw new Error(data.error || 'Failed to create cart');
-    }
-
-    return data.data.cartId;
+    if (!data.success) throw new Error(data.error);
+    return data.data.id;
   } catch (error) {
     console.error('Error creating cart:', error);
     throw error;
@@ -101,19 +132,14 @@ export async function createCart() {
 }
 
 /**
- * Fetch cart contents
- * @param {string} cartId - Shopping cart ID
- * @returns {Promise} Cart object with items and totals
+ * Get cart contents from the database
+ * @param {string} cartId 
  */
 export async function fetchCart(cartId) {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/${cartId}`);
+    const response = await fetch(`${API_BASE_URL}/carts/${cartId}`);
     const data = await response.json();
-
-    if (!data.success) {
-      throw new Error(data.error || 'Failed to fetch cart');
-    }
-
+    if (!data.success) throw new Error(data.error);
     return data.data;
   } catch (error) {
     console.error('Error fetching cart:', error);
@@ -129,7 +155,7 @@ export async function fetchCart(cartId) {
  */
 export async function addToCart(cartId, item) {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/${cartId}/add`, {
+    const response = await fetch(`${API_BASE_URL}/carts/${cartId}/items`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -158,7 +184,7 @@ export async function addToCart(cartId, item) {
  */
 export async function updateCartItem(cartId, productId, update) {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/${cartId}/update/${productId}`, {
+    const response = await fetch(`${API_BASE_URL}/carts/${cartId}/items/${productId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -189,7 +215,7 @@ export async function updateCartItem(cartId, productId, update) {
 export async function removeFromCart(cartId, productId, size, color) {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/cart/${cartId}/remove/${productId}?size=${size}&color=${color}`,
+      `${API_BASE_URL}/carts/${cartId}/items/${productId}?size=${size}&color=${color}`,
       {
         method: 'DELETE',
       }
@@ -258,3 +284,22 @@ export async function fetchOrder(orderId) {
     throw error;
   }
 }
+/**
+ * Subscribe to newsletter
+ * @param {string} email 
+ */
+export const subscribeToNewsletter = async (email) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/newsletter/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error);
+    return data;
+  } catch (error) {
+    console.error('Error subscribing to newsletter:', error);
+    throw error;
+  }
+};

@@ -6,6 +6,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { supabase } from '../utils/supabaseClient';
 import './styles/Login.css';
 
 function Login({ setUser }) {
@@ -39,29 +40,20 @@ function Login({ setUser }) {
     setError('');
 
     try {
-      // EDIT: Replace with real backend authentication
-      // For demo, we'll do mock authentication
       if (!formData.email || !formData.password) {
         setError('Please fill in all fields');
         return;
       }
 
-      // Mock authentication - in production, call your backend
-      const mockUser = {
-        id: Math.random().toString(36).substr(2, 9),
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
         email: formData.email,
-        name: formData.email.split('@')[0],
-        token: 'mock-jwt-token-' + Date.now(),
-      };
+        password: formData.password,
+      });
 
-      // Save to localStorage
-      localStorage.setItem('user', JSON.stringify(mockUser));
-      localStorage.setItem('userToken', mockUser.token);
+      if (authError) throw authError;
 
-      // Update app state
-      setUser(mockUser);
-
-      alert('✅ Logged in successfully!');
+      // Update app state - user will be caught by auth listener in App.js
+      alert('✅ Welcome back!');
       navigate('/');
     } catch (err) {
       setError(err.message || 'Login failed');
@@ -77,7 +69,6 @@ function Login({ setUser }) {
     setError('');
 
     try {
-      // Validation
       if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
         setError('Please fill in all fields');
         return;
@@ -88,27 +79,20 @@ function Login({ setUser }) {
         return;
       }
 
-      if (formData.password.length < 6) {
-        setError('Password must be at least 6 characters');
-        return;
-      }
-
-      // EDIT: Replace with real backend signup
-      const mockUser = {
-        id: Math.random().toString(36).substr(2, 9),
+      const { data, error: authError } = await supabase.auth.signUp({
         email: formData.email,
-        name: formData.name,
-        token: 'mock-jwt-token-' + Date.now(),
-      };
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.name,
+          }
+        }
+      });
 
-      // Save to localStorage
-      localStorage.setItem('user', JSON.stringify(mockUser));
-      localStorage.setItem('userToken', mockUser.token);
+      if (authError) throw authError;
 
-      // Update app state
-      setUser(mockUser);
-
-      alert('✅ Account created successfully!');
+      // Profile will be created by auth listener/hook in App.js or handled here
+      alert('✅ Check your email for verification link!');
       navigate('/');
     } catch (err) {
       setError(err.message || 'Signup failed');

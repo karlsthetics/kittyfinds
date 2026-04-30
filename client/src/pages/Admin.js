@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '../utils/supabaseClient';
 import './styles/Admin.css';
 
 const Admin = () => {
+  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(null); // null = loading, true/false = status
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
   const [activeTab, setActiveTab] = useState('products');
   const [products, setProducts] = useState([]);
@@ -19,9 +23,39 @@ const Admin = () => {
   });
 
   useEffect(() => {
-    fetchProducts();
-    fetchOrders();
+    checkAdminStatus();
   }, []);
+
+  const checkAdminStatus = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        setIsAdmin(false);
+        setTimeout(() => navigate('/login'), 2000);
+        return;
+      }
+
+      // Check profiles table for is_admin flag or role
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('is_admin, role')
+        .eq('id', user.id)
+        .single();
+
+      if (error || (!data?.is_admin && data?.role !== 'admin')) {
+        setIsAdmin(false);
+        setTimeout(() => navigate('/'), 3000);
+      } else {
+        setIsAdmin(true);
+        fetchProducts();
+        fetchOrders();
+      }
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+      setIsAdmin(false);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -152,6 +186,29 @@ const Admin = () => {
     });
     setShowProductForm(true);
   };
+
+  if (isAdmin === null) {
+    return (
+      <div className="admin-loading">
+        <div className="loading-content">
+          <h1>🎀 Verifying Admin Access...</h1>
+          <p>Please wait a moment.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isAdmin === false) {
+    return (
+      <div className="admin-denied">
+        <div className="denied-content">
+          <h1>🚫 Access Denied</h1>
+          <p>You do not have permission to view this page. Redirecting you home...</p>
+          <button onClick={() => navigate('/')} className="btn btn-primary">Go Home</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="admin-page">
@@ -341,15 +398,15 @@ const Admin = () => {
                     <div className="order-details">
                       <div className="detail-group">
                         <h4>Customer Information</h4>
-                        <p><strong>Name:</strong> {order.shippingInfo?.firstName} {order.shippingInfo?.lastName}</p>
-                        <p><strong>Email:</strong> {order.shippingInfo?.email}</p>
-                        <p><strong>Phone:</strong> {order.shippingInfo?.phone}</p>
+                        <p><strong>Name:</strong> {order.shipping_info?.firstName} {order.shipping_info?.lastName}</p>
+                        <p><strong>Email:</strong> {order.shipping_info?.email}</p>
+                        <p><strong>Phone:</strong> {order.shipping_info?.phone}</p>
                       </div>
 
                       <div className="detail-group">
                         <h4>Shipping Address</h4>
-                        <p>{order.shippingInfo?.address}</p>
-                        <p>{order.shippingInfo?.city}, {order.shippingInfo?.state} {order.shippingInfo?.zipCode}</p>
+                        <p>{order.shipping_info?.address}</p>
+                        <p>{order.shipping_info?.city}, {order.shipping_info?.state} {order.shipping_info?.zipCode}</p>
                       </div>
 
                       <div className="detail-group">
@@ -377,7 +434,7 @@ const Admin = () => {
 
                       <div className="detail-group">
                         <h4>Order Date</h4>
-                        <p>{new Date(order.createdAt).toLocaleString()}</p>
+                        <p>{new Date(order.created_at).toLocaleString()}</p>
                       </div>
                     </div>
 
@@ -388,7 +445,7 @@ const Admin = () => {
                           <button
                             key={status}
                             className={`status-btn ${order.status === status ? 'active' : ''}`}
-                            onClick={() => handleUpdateOrderStatus(order.id, status)}
+                            onClick={() => handleUpdateOrderStatus(order.id || order.order_id, status)}
                           >
                             {status.charAt(0).toUpperCase() + status.slice(1)}
                           </button>

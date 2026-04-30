@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { addToCart, createCart } from '../utils/api';
+import { addToCart, createCart, fetchReviews, addReview } from '../utils/api';
 import './styles/ProductDetail.css';
 
 // All products database
@@ -55,6 +55,9 @@ function ProductDetail({ cartId, setCartId }) {
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [reviewForm, setReviewForm] = useState({ name: '', rating: 5, comment: '' });
+  const [submittingReview, setSubmittingReview] = useState(false);
 
   useEffect(() => {
     const found = ALL_PRODUCTS.find(p => p.id === id);
@@ -62,6 +65,11 @@ function ProductDetail({ cartId, setCartId }) {
       setProduct(found);
       setSelectedSize(found.sizes?.[0] || '');
       setSelectedColor(found.colors?.[0] || '');
+      
+      // Fetch real reviews
+      fetchReviews(id)
+        .then(data => setReviews(data))
+        .catch(err => console.error('Error fetching reviews:', err));
     }
     setLoading(false);
   }, [id]);
@@ -87,6 +95,29 @@ function ProductDetail({ cartId, setCartId }) {
         });
     }
   }, [cartId, setCartId]);
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!reviewForm.name || !reviewForm.comment) {
+      alert('Please fill in all fields');
+      return;
+    }
+    setSubmittingReview(true);
+    try {
+      const newReview = await addReview(id, {
+        user_name: reviewForm.name,
+        rating: reviewForm.rating,
+        comment: reviewForm.comment
+      });
+      setReviews(prev => [newReview, ...prev]);
+      setReviewForm({ name: '', rating: 5, comment: '' });
+      alert('Review submitted! Thank you! 💕');
+    } catch (err) {
+      alert('Error submitting review: ' + err.message);
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
 
   const handleAddToCart = async () => {
     if (!selectedSize || !selectedColor) {
@@ -190,16 +221,59 @@ function ProductDetail({ cartId, setCartId }) {
         </div>
 
         <div className="reviews-section">
-          <h2>Customer Reviews</h2>
+          <h2>Customer Reviews ({reviews.length})</h2>
+          
+          {/* Review Submission Form */}
+          <div className="add-review-container">
+            <h3>Share Your Experience 🎀</h3>
+            <form onSubmit={handleReviewSubmit} className="review-form">
+              <div className="form-group">
+                <input 
+                  type="text" 
+                  placeholder="Your Name" 
+                  value={reviewForm.name} 
+                  onChange={e => setReviewForm({...reviewForm, name: e.target.value})}
+                  required 
+                />
+              </div>
+              <div className="form-group">
+                <select 
+                  value={reviewForm.rating} 
+                  onChange={e => setReviewForm({...reviewForm, rating: parseInt(e.target.value)})}
+                >
+                  <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                  <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                  <option value="3">⭐⭐⭐ (3/5)</option>
+                  <option value="2">⭐⭐ (2/5)</option>
+                  <option value="1">⭐ (1/5)</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <textarea 
+                  placeholder="Your thoughts about this piece..." 
+                  value={reviewForm.comment}
+                  onChange={e => setReviewForm({...reviewForm, comment: e.target.value})}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn btn-secondary" disabled={submittingReview}>
+                {submittingReview ? 'Submitting...' : 'Post Review'}
+              </button>
+            </form>
+          </div>
+
           <div className="reviews-container">
-            <div className="review-item">
-              <p className="review-rating">⭐⭐⭐⭐⭐</p>
-              <p className="review-text">"Absolutely love this! Perfect quality and stunning design!" - Sarah</p>
-            </div>
-            <div className="review-item">
-              <p className="review-rating">⭐⭐⭐⭐⭐</p>
-              <p className="review-text">"This is exactly what I was looking for. Highly recommend!" - Emma</p>
-            </div>
+            {reviews.length > 0 ? (
+              reviews.map((review, idx) => (
+                <div key={idx} className="review-item">
+                  <p className="review-rating">{'⭐'.repeat(review.rating)}</p>
+                  <p className="review-text">"{review.comment}" - <strong>{review.user_name}</strong></p>
+                  <p className="review-date">{new Date(review.created_at).toLocaleDateString()}</p>
+                </div>
+              ))
+            ) : (
+              <p>No reviews yet. Be the first to review! ✨</p>
+            )}
           </div>
         </div>
       </div>

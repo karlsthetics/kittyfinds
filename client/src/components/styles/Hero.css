@@ -157,9 +157,21 @@
 }
 
 .hero-title-accent {
-  color: #000000;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.4);
   display: inline;
+}
+
+.hero-title-accent > span {
+  background: linear-gradient(
+    135deg,
+    #f4a7b9 0%,
+    #ff8da1 25%,
+    #e8a0bf 45%,
+    #a8d8b9 70%,
+    #8ecfa8 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-br {

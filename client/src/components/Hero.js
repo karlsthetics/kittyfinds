@@ -118,13 +118,7 @@ function Hero() {
                     animate: { opacity: 1, y: 0 }
                   }}
                   style={{ display: 'inline-block', whiteSpace: char === " " ? "pre" : "normal" }}
-                  whileHover={{ 
-                    y: -15, 
-                    color: "#ff69b4", 
-                    WebkitTextFillColor: "#ff69b4",
-                    textShadow: "0 0 20px rgba(255, 255, 255, 1)",
-                    scale: 1.2 
-                  }}
+                  whileHover={{ y: -15, color: "#d4efdf", scale: 1.2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
                   {char}

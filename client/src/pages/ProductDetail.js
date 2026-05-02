@@ -46,7 +46,7 @@ function getColorCode(colorName) {
   return colorMap[colorName] || '#cccccc';
 }
 
-function ProductDetail({ cartId, setCartId }) {
+function ProductDetail({ cartId, setCartId, user }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
@@ -135,6 +135,12 @@ function ProductDetail({ cartId, setCartId }) {
   };
 
   const handleAddToCart = async () => {
+    // Check if user is logged in before allowing add to cart
+    if (!user) {
+      navigate(`/login?redirect=/product/${id}`);
+      return;
+    }
+
     if (!selectedSize || !selectedColor) {
       alert('Please select a size and color');
       return;
@@ -238,7 +244,7 @@ function ProductDetail({ cartId, setCartId }) {
               </button>
             ) : (
               <button className={`btn btn-primary add-to-cart-btn ${addedToCart ? 'added' : ''}`} onClick={handleAddToCart}>
-                {addedToCart ? '✓ Added to Cart!' : 'Add to Cart'}
+                {addedToCart ? '✓ Added to Cart!' : user ? 'Add to Cart' : 'Sign In to Add to Cart'}
               </button>
             )}
 

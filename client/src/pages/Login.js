@@ -5,12 +5,14 @@
 // ============================================================================
 
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
 import './styles/Login.css';
 
 function Login({ setUser }) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/';
   const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -59,7 +61,7 @@ function Login({ setUser }) {
 
       // Update app state - user will be caught by auth listener in App.js
       alert('✅ Welcome back!');
-      navigate('/');
+      navigate(redirectTo);
     } catch (err) {
       setError(err.message || 'Login failed');
     } finally {
@@ -103,7 +105,7 @@ function Login({ setUser }) {
 
       // Profile will be created by auth listener/hook in App.js or handled here
       alert('✅ Check your email for verification link!');
-      navigate('/');
+      navigate(redirectTo);
     } catch (err) {
       setError(err.message || 'Signup failed');
     } finally {

@@ -297,7 +297,7 @@ const Admin = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label>Price ($) *</label>
+                      <label>Price (₱) *</label>
                       <input
                         type="number"
                         step="0.01"
@@ -379,7 +379,7 @@ const Admin = () => {
                     <img src={product.image} alt={product.name} />
                     <div className="product-info">
                       <h4>{product.name}</h4>
-                      <p className="price">${product.price.toFixed(2)}</p>
+                      <p className="price">₱{product.price.toFixed(2)}</p>
                       <p className="category">{product.category}</p>
                       <div className="product-actions">
                         <button
@@ -451,10 +451,10 @@ const Admin = () => {
 
                       <div className="detail-group">
                         <h4>Order Summary</h4>
-                        <p><strong>Subtotal:</strong> ${order.subtotal?.toFixed(2) || '0.00'}</p>
-                        <p><strong>Tax:</strong> ${order.tax?.toFixed(2) || '0.00'}</p>
-                        <p><strong>Shipping:</strong> ${order.shipping?.toFixed(2) || '0.00'}</p>
-                        <p className="total"><strong>Total:</strong> ${order.total?.toFixed(2) || '0.00'}</p>
+                        <p><strong>Subtotal:</strong> ₱{order.subtotal?.toFixed(2) || '0.00'}</p>
+                        <p><strong>Tax:</strong> ₱{order.tax?.toFixed(2) || '0.00'}</p>
+                        <p><strong>Shipping:</strong> ₱{order.shipping?.toFixed(2) || '0.00'}</p>
+                        <p className="total"><strong>Total:</strong> ₱{order.total?.toFixed(2) || '0.00'}</p>
                       </div>
 
                       <div className="detail-group">

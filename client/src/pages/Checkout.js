@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchCart, createOrder } from '../utils/api';
+import ConsentSection from '../components/ConsentSection';
 import './styles/Checkout.css';
 
 function Checkout({ cartId, setCartId }) {
@@ -95,7 +96,7 @@ function Checkout({ cartId, setCartId }) {
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
 
     if (!validateForm()) {
       alert('Please fill in all required fields');
@@ -427,7 +428,17 @@ function Checkout({ cartId, setCartId }) {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* Consent and Pay Section */}
+            {!orderPlaced && cart && (
+              <ConsentSection 
+                customerData={formData}
+                orderTotal={cart.total.toFixed(2)}
+                onPaymentComplete={handleSubmit}
+              />
+            )}
+
+            {/* Original Submit Button - Hidden in favor of ConsentSection */}
+            {/* 
             <button
               type="submit"
               className={`btn btn-primary submit-btn ${submitting ? 'disabled' : ''}`}
@@ -435,6 +446,7 @@ function Checkout({ cartId, setCartId }) {
             >
               {submitting ? 'Processing...' : `Complete Order - ₱${cart.total.toFixed(2)}`}
             </button>
+            */}
           </form>
 
           {/* Order Summary Sidebar */}

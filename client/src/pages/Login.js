@@ -6,7 +6,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
-import { supabase } from '../utils/supabaseClient';
+import { assertSupabase } from '../utils/supabaseClient';
 import './styles/Login.css';
 
 function Login({ setUser }) {
@@ -47,12 +47,8 @@ function Login({ setUser }) {
         return;
       }
 
-      if (!supabase) {
-        setError('Authentication is not configured. Please set up Supabase credentials.');
-        return;
-      }
-
-      const { data, error: authError } = await supabase.auth.signInWithPassword({
+      const client = assertSupabase();
+      const { data, error: authError } = await client.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,
       });
@@ -86,12 +82,8 @@ function Login({ setUser }) {
         return;
       }
 
-      if (!supabase) {
-        setError('Authentication is not configured. Please set up Supabase credentials.');
-        return;
-      }
-
-      const { data, error: authError } = await supabase.auth.signUp({
+      const client = assertSupabase();
+      const { data, error: authError } = await client.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {

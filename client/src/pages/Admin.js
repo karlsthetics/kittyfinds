@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../utils/supabaseClient';
+import { assertSupabase } from '../utils/supabaseClient';
 import './styles/Admin.css';
 
 const Admin = () => {
@@ -28,13 +28,8 @@ const Admin = () => {
 
   const checkAdminStatus = async () => {
     try {
-      if (!supabase) {
-        setIsAdmin(false);
-        setTimeout(() => navigate('/login'), 2000);
-        return;
-      }
-
-      const { data: { user } } = await supabase.auth.getUser();
+      const client = assertSupabase();
+      const { data: { user } } = await client.auth.getUser();
 
       if (!user) {
         setIsAdmin(false);
@@ -43,7 +38,7 @@ const Admin = () => {
       }
 
       // Check profiles table for is_admin flag or role
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('profiles')
         .select('is_admin, role')
         .eq('id', user.id)

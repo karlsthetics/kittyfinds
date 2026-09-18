@@ -15,11 +15,12 @@
 }
 
 .about-hero h1 {
+  font-family: var(--font-manfitte, 'Manfitte', 'Playfair Display', serif);
   font-size: 3.5rem;
   color: #ff1493;
   margin-bottom: 10px;
   font-weight: 700;
-  letter-spacing: -1px;
+  letter-spacing: 0.02em;
 }
 
 .about-hero p {
@@ -64,10 +65,12 @@
 }
 
 .about-section h2 {
-  font-size: 2rem;
+  font-family: var(--font-manfitte, 'Manfitte', 'Playfair Display', serif);
+  font-size: 2.2rem;
   color: #ff1493;
   margin-bottom: 20px;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .about-section p {
@@ -104,10 +107,12 @@
 }
 
 .collection-info-card h3 {
-  font-size: 1.3rem;
+  font-family: var(--font-manfitte, 'Manfitte', 'Playfair Display', serif);
+  font-size: 1.4rem;
   color: #ff1493;
   margin-bottom: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .collection-info-card p {

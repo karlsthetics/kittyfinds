@@ -70,14 +70,14 @@
   font-size: 1.8rem;
 }
 
-.section-header {
+.admin-section .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-.section-header h2 {
+.admin-section .section-header h2 {
   margin: 0;
 }
 
@@ -438,7 +438,7 @@
     width: 100%;
   }
 
-  .section-header {
+  .admin-section .section-header {
     flex-direction: column;
     gap: 1rem;
     align-items: stretch;

@@ -94,7 +94,7 @@ function Hero() {
             animate="animate"
             style={{ cursor: 'default', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', animation: 'none' }}
           >
-            {"Your Coquette ".split("").map((char, index) => (
+            {"Commission ".split("").map((char, index) => (
               <motion.span
                 key={index}
                 variants={{
@@ -110,7 +110,7 @@ function Hero() {
             ))}
             
             <motion.span className="hero-title-accent" style={{ display: 'flex' }}>
-              {"Era ".split("").map((char, index) => (
+              {"Rework ".split("").map((char, index) => (
                 <motion.span
                   key={index}
                   variants={{
@@ -128,7 +128,7 @@ function Hero() {
 
             <br className="hero-br" />
             
-            {"Awaits ".split("").map((char, index) => (
+            {"Bundle ".split("").map((char, index) => (
               <motion.span
                 key={index}
                 variants={{
@@ -155,91 +155,7 @@ function Hero() {
             </motion.span>
           </motion.h1>
 
-          {/* Subtitle */}
-          <motion.p 
-            className="hero-subtitle"
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            Ribbons, lace & all things dreamy — discover our curated aesthetic
-            collections. Handpicked pieces for girls who dream in pink.
-          </motion.p>
-
-          {/* CTA row */}
-          <motion.div 
-            className="hero-ctas"
-            initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link to="/shop" className="hero-cta-primary">
-                Explore Collections →
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link to="/shop?category=coquette" className="hero-cta-outline">
-                Coquette 🎀
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link to="/shop?category=fairycore" className="hero-cta-outline">
-                Fairycore 🌸
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* Stats strip */}
-          <motion.div 
-            className="hero-stats"
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }}
-            whileHover={{ y: -5, transition: { duration: 0.3 } }}
-          >
-            <div className="hero-stat">
-              <span className="hero-stat-number">25+</span>
-              <span className="hero-stat-label">Pieces</span>
-            </div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat">
-              <span className="hero-stat-number">3</span>
-              <span className="hero-stat-label">Aesthetics</span>
-            </div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat">
-              <span className="hero-stat-number">4.9★</span>
-              <span className="hero-stat-label">Avg Rating</span>
-            </div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat">
-              <span className="hero-stat-number">2k+</span>
-              <span className="hero-stat-label">Happy Customers</span>
-            </div>
-          </motion.div>
         </motion.div>
-      </div>
-
-      {/* Feature badges row (MetaMask-style bottom strip) */}
-      <div className="hero-features-strip">
-        <div className="container">
-          <div className="hero-features-row">
-            {[
-              { icon: '🚚', title: 'Fast Shipping', desc: 'Ships in 1-2 days' },
-              { icon: '🎀', title: 'Premium Quality', desc: 'Curated collections' },
-              { icon: '💕', title: '100% Satisfaction', desc: 'Easy returns' },
-              { icon: '🌟', title: 'Exclusive Items', desc: 'Limited editions' },
-            ].map((f, i) => (
-              <motion.div 
-                key={i} 
-                className="hero-feature-card"
-                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 105, 180, 0.1)' }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-              >
-                <span className="hero-feature-icon">{f.icon}</span>
-                <div>
-                  <p className="hero-feature-title">{f.title}</p>
-                  <p className="hero-feature-desc">{f.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
       </div>
 
     </section>

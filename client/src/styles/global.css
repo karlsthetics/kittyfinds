@@ -5,7 +5,40 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
+@font-face {
+  font-family: 'Manfitte';
+  src: url('../assets/manfitte/Manfitte.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manfitte';
+  src: url('../assets/manfitte/Manfitte Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manfitte';
+  src: url('../assets/manfitte/Manfitte Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manfitte';
+  src: url('../assets/manfitte/Manfitte Bold Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
+  --font-manfitte: 'Manfitte', 'Playfair Display', serif;
   /* ── BRAND COLORS ─────────────────────────────────────────── */
   --primary-pink:    #ffb7c5;          /* soft coquette pink */
   --dark-pink:       #f4a7b9;

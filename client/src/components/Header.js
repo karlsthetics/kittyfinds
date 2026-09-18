@@ -93,31 +93,11 @@ function Header({ cartId, user, setUser }) {
             <Link to="/contact" className={isActive('/contact')} onClick={() => setIsMenuOpen(false)}>
               Contact
             </Link>
-            <Link to="/cart" className="nav-link cart-link" onClick={() => setIsMenuOpen(false)}>
-              🛍 Cart
-              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-            </Link>
           </nav>
 
-          {/* User section */}
+          {/* User section (removed for rework bundle) */}
           <div className="user-section">
-            {!user ? (
-              <Link to="/login" className="login-btn" onClick={() => setIsMenuOpen(false)}>
-                Login
-              </Link>
-            ) : (
-              <>
-                <span className="user-welcome">Hi, {user.name?.split(' ')[0]}!</span>
-                {user.email === 'karl.alegrado@urios.edu.ph' && (
-                  <Link to="/admin" className="admin-btn" onClick={() => setIsMenuOpen(false)}>
-                    👨‍💼 Admin
-                  </Link>
-                )}
-                <button className="logout-btn" onClick={handleLogout}>
-                  Logout
-                </button>
-              </>
-            )}
+            {/* Login and Admin removed */}
           </div>
 
         </div>

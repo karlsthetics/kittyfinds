@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b9ac4e37.css",
+    "main.js": "/static/js/main.215e03bb.js",
+    "static/media/ethereal.png": "/static/media/ethereal.15ade0228e56e65456e6.png",
+    "static/media/Manfitte Bold Italic.otf": "/static/media/Manfitte Bold Italic.2a3d1d12fd3bab2b776c.otf",
+    "static/media/Manfitte Italic.otf": "/static/media/Manfitte Italic.c387b2da8bae9af825f9.otf",
+    "static/media/Manfitte Bold.otf": "/static/media/Manfitte Bold.0acc3a8d7fe1487b6866.otf",
+    "static/media/Manfitte.otf": "/static/media/Manfitte.4ad5023aed3cd70d9ad1.otf",
+    "index.html": "/index.html",
+    "main.b9ac4e37.css.map": "/static/css/main.b9ac4e37.css.map",
+    "main.215e03bb.js.map": "/static/js/main.215e03bb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b9ac4e37.css",
+    "static/js/main.215e03bb.js"
+  ]
+}

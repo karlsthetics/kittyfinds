@@ -574,17 +574,38 @@
 
 /* ── Reworks Section ─────────────────────────────────────────── */
 .reworks-section {
-  padding: 80px 0;
+  padding: 40px 0 60px;
   background: rgba(245, 239, 250, 0.4);
   backdrop-filter: blur(10px);
   border-radius: 32px;
-  margin: 0 16px;
+  margin: 0 12px;
+}
+
+.reworks-section .section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 0 16px;
+}
+
+.reworks-section .section-title {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.reworks-section .section-description {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .reworks-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 12px;
+  padding: 0 16px;
 }
 
 .rework-panel {
@@ -593,6 +614,7 @@
   overflow: hidden;
   border: 1px solid var(--border);
   transition: all 0.25s var(--ease-out);
+  cursor: pointer;
 }
 
 .rework-panel:hover {
@@ -604,6 +626,7 @@
   width: 100%;
   aspect-ratio: 3/4;
   overflow: hidden;
+  position: relative;
 }
 
 .rework-image {
@@ -618,7 +641,7 @@
 }
 
 .rework-info {
-  padding: 10px 12px;
+  padding: 8px 10px;
 }
 
 .rework-info h3 {
@@ -626,7 +649,7 @@
   font-weight: 700;
   font-family: var(--font-body);
   color: var(--text-primary);
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .rework-status {
@@ -634,6 +657,56 @@
   color: var(--primary-pink);
   font-weight: 600;
   margin: 0;
+}
+
+/* ── Mobile: 2 columns, 4 cards above fold ── */
+@media (max-width: 768px) {
+  .reworks-section {
+    padding: 24px 0 40px;
+    border-radius: 20px;
+    margin: 0 8px;
+  }
+
+  .reworks-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .rework-image-placeholder {
+    aspect-ratio: 3/4;
+    max-height: 32vh;
+  }
+
+  .rework-info {
+    padding: 6px 8px;
+  }
+
+  .rework-info h3 {
+    font-size: 0.72rem;
+  }
+
+  .rework-desc {
+    display: none;
+  }
+
+  .inquire-btn {
+    padding: 8px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .reworks-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .rework-image-placeholder {
+    aspect-ratio: 3/4;
+    max-height: 30vh;
+  }
 }
 
 /* ── Newsletter Section ──────────────────────────────────────── */
@@ -829,4 +902,77 @@
   .countdown-timer { gap: 10px; }
   .countdown-item { padding: 12px 16px; min-width: 65px; }
   .countdown-number { font-size: 1.7rem; }
+}
+
+/* --- New Rework Interactivity --- */
+
+.rework-image-placeholder {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.rework-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 192, 203, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.rework-panel:hover .rework-overlay {
+  opacity: 1;
+}
+
+.rework-overlay-btn {
+  background: white;
+  color: #ff69b4;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.rework-panel:hover .rework-overlay-btn {
+  transform: translateY(0);
+}
+
+.rework-desc {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.inquire-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+}
+
+.inquire-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
+}
+
+.inquire-btn:active {
+  transform: translateY(1px);
 }
